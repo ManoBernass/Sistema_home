@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Monospace&display=swap">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<style>
+    .header {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: absolute;
+        top: 0;
+        margin-top: 20px;
+        border-radius: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 350px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+        z-index: 1000;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        
+    }
+    .lista {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .item-lista {
+        display: inline-block;
+        border: 1px solid #f1f1f1;
+        background-color: white;
+        padding: 10px 20px;
+        border-radius: 100px;
+    }
+    .item-lista:hover {
+        background-color: #e0e0e0;
+        border: 1px solid #f1f1f1;
+        color: #000;
+        transform: scale(0.95);
+        transition: all 0.3s ease;
+    }
+
+    a .item-lista  {
+        text-decoration: none;
+        color: #333;
+       
+        font-weight: bold;
+        font-family: 'monospace', sans-serif;
+    }
+
+    a .item-lista.ativo {
+        background-color: rgb(208, 208, 208);
+        border: 1px solid #f1f1f1;
+        transform: scale(0.95);
+        color: #000;
+    }
+    a .item-lista.ativo:hover {
+        background-color: #e0e0e0;
+        border: 1px solid #f1f1f1;
+        color: #000;
+    }
+
+    body{
+       background: radial-gradient(circle at center, #fafbf9 0%, #fafbf9 20%, #b1b1b1 100%);
+    }
+    .background {
+       background: radial-gradient(circle at center, #fafbf9 0%, #fafbf9 20%, #b1b1b1 100%);
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .overlay {
+        position: relative;
+        top: 35%;
+        transform: translateY(-50%);
+        transform: translateX(0);
+        width: 100%;
+    }
+
+     .backgroundform {
+       background: radial-gradient(circle at center, #fafbf9 0%, #fafbf9 20%, #b1b1b1 100%);
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 115%;
+    }
+
+    .overlayform {
+        position: relative;
+        top: 18%;
+        transform: translateY(-50%);
+        transform: translateX(0);
+        width: 100%;
+    }
+
+    .text-home {
+        
+        width: 50%;
+        margin: 0 auto;
+        font-size: 24px;
+        color: #1F2322;
+        font-family: 'monospace', sans-serif;
+        text-align: center;
+    }
+    .text-home h1 {
+        font-size:1.9em;
+        font-weight: bold;
+        margin-bottom: 0px;
+    }
+    .text-home h2 {
+        font-size: 2em;
+        font-weight: lighter;
+        margin-top: 0px;
+    }
+    .footer {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .fundo {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        width: 400px;
+        height: 630px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+    .cad {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        font-family: 'monospace', sans-serif;
+    }
+    .titulo-form {
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+        font-family: 'monospace', sans-serif;
+    }
+    .cad label {
+        text-align: left;
+        font-weight: bold;
+    }
+    .cad input, .cad select{
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .cad button {
+        position: relative;
+        margin: 0 auto;
+        width: 300px;
+        padding: 10px;
+        border: none;
+        border-radius:  100px;
+        background-color: #fff;
+        color: #333;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+
+    .cad button:hover {
+        
+        background-color: #fefefe;
+        border: 1px solid #ccc;
+        color: #000;
+        transform: scale(0.95);
+        transition: all 0.3s ease;
+        box-shadow: #b0b0b0 0px 0px 10px;
+    }
+
+</style>
+
+</head>
+<body>
+    <header class="header">
+        <nav>
+        <ul class="lista">
+            <a href="#"><li class="item-lista" data-target="form1">Form. 1</li></a>
+            <a href="#"><li class="item-lista ativo" data-target="home">Home</li></a>
+            <a href="#"><li class="item-lista" data-target="form2">Form. 2</li></a >
+        </ul>
+    </nav>
+    </header>
+    <section id="home" class="background">
+        <div class="overlay">
+            <div  class="home">
+                <div class="text-home">
+                    <h1>Bem-vindo </h1>
+                   <h2>ao Sistema</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="form1" class="backgroundform" style="display:none;">
+        <div class="overlayform">
+            <div  class="form1" >
+                <div class="fundo">
+                    <h1 class="titulo-form">Cadastro de visitantes 1</h1>  
+                        <form class="cad">  
+                            <label for="nome">Nome do visitante</label>  
+                                <input type="text" id="nome" placeholder="Digite aqui o nome do visitante">  
+
+                                <label for="cpf">CPF do visitante</label>  
+                                <input type="text"    id="cpf" placeholder="Digite o cpf xxx.xxx.xxx-xx"required>  
+  
+                                <label for="tel">telefone do visitante</label>  
+                                <input type="tel" id="tell" placeholder="digite o telefone">  
+
+                                <label for="text">Digite a placa</label>  
+                                <input type="text" id="placa" placeholder="Digite a placa do carro" required>
+
+                                <label for="date">Digite a data:</label>  
+                                <input type="date" id="data" >  
+
+                                <label for="setores">Setores:</label>  
+                                <select id="setor" name="setor"required>
+                                    <option value="">Selecione um setor</option>
+                                    <option value="CETESB">CETESB</option>
+                                    <option value="MEIO-AMBIENTE">MEIO-AMBIENTE</option>
+                                    <option value="DER">DER</option>
+                                    <option value="DRADS">DRADS</option>
+                                    <option value="ESPORTES">ESPORTES</option>
+                                    <option value="PROCON">PROCON</option>
+                                    <option value="CDA / CATI">CDA / CATI</option>
+                            </select>
+                            <button type="submit">enviar cadastro</button>
+                    </form>
+                </div>
+            </div>    
+        </div>
+    </section>
+    <section id="form2" class="backgroundform" style="display:none;">
+        <div class="overlayform">
+            <div  class="form2" >
+                <div class="fundo">
+                    <h1 class="titulo-form">Cadastro de visitantes 2</h1>  
+                        <form class="cad">  
+                            <label for="nome">Nome do visitante</label>  
+                                <input type="text" id="nome" placeholder="Digite aqui o nome do visitante">  
+
+                                <label for="cpf">CPF do visitante</label>  
+                                <input type="text"    id="cpf" placeholder="Digite o cpf xxx.xxx.xxx-xx"required>  
+  
+                                <label for="tel">telefone do visitante</label>  
+                                <input type="tel" id="tell" placeholder="digite o telefone">  
+
+                                <label for="text">Digite a placa</label>  
+                                <input type="text" id="placa" placeholder="Digite a placa do carro" required>
+
+                                <label for="date">Digite a data:</label>  
+                                <input type="date" id="data" >  
+
+                                <label for="setores">Setores:</label>  
+                                <select id="setor" name="setor"required>
+                                    <option value="">Selecione um setor</option>
+                                    <option value="CETESB">CETESB</option>
+                                    <option value="MEIO-AMBIENTE">MEIO-AMBIENTE</option>
+                                    <option value="DER">DER</option>
+                                    <option value="DRADS">DRADS</option>
+                                    <option value="ESPORTES">ESPORTES</option>
+                                    <option value="PROCON">PROCON</option>
+                                    <option value="CDA / CATI">CDA / CATI</option>
+                            </select>
+                            <button type="submit">enviar cadastro</button>
+                    </form>
+                </div>
+            </div>    
+        </div>
+    </section>
+    
+    <script>
+       $(document).ready(function(){
+
+    $('#form1, #form2').hide();
+    $('#home').show();
+
+    $('.item-lista').click(function(e){
+        e.preventDefault();
+
+        $('.item-lista').removeClass('ativo');
+        $(this).addClass('ativo');
+
+        let target = $(this).data('target');
+
+        $('#home, #form1, #form2').fadeOut(200);
+
+        setTimeout(() => {
+            $('#' + target).fadeIn(200);
+        }, 200);
+
+    });
+
+});
+
+$('#cpf').mask('000.000.000-00');
+$('#tell').mask('(00) 00000-0000');
+$('#placa').mask('AAA-0000');
+
+    </script>
+</body>
+</html>
