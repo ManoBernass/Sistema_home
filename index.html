@@ -34,6 +34,78 @@
         gap: 20px;
         
     }
+    @keyframes circle-in-esquerda {
+  from {
+    clip-path: circle(0% at 43% 7%);
+  }
+  to {
+    clip-path: circle(150% at 43% 7%);
+  }
+}
+@keyframes circle-out-esquerda {
+  from {
+    clip-path: circle(150% at 43% 7%);
+  }
+  to {
+    clip-path: circle(0% at 43% 7%);
+  }
+}
+  @keyframes circle-in {
+  from {
+    clip-path: circle(0% at 50% 7%);
+  }
+  to {
+    clip-path: circle(150% at 50% 7%);
+  }
+}
+@keyframes circle-out {
+  from {
+    clip-path: circle(150% at 50% 7%);
+  }
+  to {
+    clip-path: circle(0% at 50% 7%);
+  }
+}
+ @keyframes circle-in-direita {
+  from {
+    clip-path: circle(0% at 57% 7%);
+  }
+  to {
+    clip-path: circle(150% at 57% 7%);
+  }
+}
+@keyframes circle-out-direita {
+  from {
+    clip-path: circle(150% at 57% 7%);
+  }
+  to {
+    clip-path: circle(0% at 57% 7%);
+  }
+}
+.circle-in-esquerda {
+  animation: circle-in-esquerda 0.3s ease forwards;
+}
+
+.circle-out-esquerda {
+  animation: circle-out-esquerda 0.3s ease forwards;
+}
+
+.circle-in {
+  animation: circle-in 0.3s ease forwards;
+}
+
+.circle-out {
+  animation: circle-out 0.3s ease forwards;
+}
+
+.circle-in-direita {
+  animation: circle-in-direita 0.3s ease forwards;
+}
+
+.circle-out-direita {
+  animation: circle-out-direita 0.3s ease forwards;
+}
+
     .lista {
         list-style: none;
         padding: 0;
@@ -202,9 +274,9 @@
     <header class="header">
         <nav>
         <ul class="lista">
-            <a href="#"><li class="item-lista" data-target="form1">Form. 1</li></a>
-            <a href="#"><li class="item-lista ativo" data-target="home">Home</li></a>
-            <a href="#"><li class="item-lista" data-target="form2">Form. 2</li></a >
+            <a href="#"><li class="item-lista" data-target="form1" data-anim="esquerda">Form. 1</li></a>
+            <a href="#"><li class="item-lista ativo" data-target="home" data-anim="centro">Home</li></a>
+            <a href="#"><li class="item-lista" data-target="form2" data-anim="direita">Form. 2</li></a >
         </ul>
     </nav>
     </header>
@@ -296,26 +368,44 @@
     </section>
     
     <script>
-       $(document).ready(function(){
+    $(document).ready(function(){
 
     $('#form1, #form2').hide();
     $('#home').show();
 
     $('.item-lista').click(function(e){
-        e.preventDefault();
+    e.preventDefault();
 
-        $('.item-lista').removeClass('ativo');
-        $(this).addClass('ativo');
+    if ($(this).hasClass('ativo')) return;
 
-        let target = $(this).data('target');
+    let target = $(this).data('target');
+    let anim = $(this).data('anim');
+    let current = $('section:visible');
 
-        $('#home, #form1, #form2').fadeOut(200);
+    $('.item-lista').removeClass('ativo');
+    $(this).addClass('ativo');
 
-        setTimeout(() => {
-            $('#' + target).fadeIn(200);
-        }, 200);
+    current.removeClass('circle-in circle-out circle-in-esquerda circle-out-esquerda circle-in-direita circle-out-direita');
 
-    });
+    current.addClass('circle-out' + (anim === 'centro' ? '' : '-' + anim));
+
+    setTimeout(() => {
+
+        $('#home, #form1, #form2')
+          .hide()
+          .removeClass('circle-out circle-out-esquerda circle-out-direita');
+
+        let next = $('#' + target);
+        next.show();
+
+        void next[0].offsetWidth;
+
+        next.removeClass('circle-in circle-in-esquerda circle-in-direita');
+
+        next.addClass('circle-in' + (anim === 'centro' ? '' : '-' + anim));
+
+    }, 300);
+});
 
 });
 
